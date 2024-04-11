@@ -32,7 +32,7 @@ const DeleteOrder = () => {
     return (
         <div>
             <div>
-                <BackButton destination={'/'}/>
+                <BackButton destination={'/orders'}/>
             </div>
             {loading ? <Spinner/> : ''}
             <div className="d-flex flex-column bg-secondary-subtle m-xl-5 p-lg-5 justify-content-center align-items-center">
@@ -41,7 +41,7 @@ const DeleteOrder = () => {
 
                 <div className='d-flex gap-5'>
                     <button type="button" className="btn btn-outline-danger" onClick={handleDelete}>Yes Delete it</button>
-                    <Link to={'/'}>
+                    <Link to={'/orders'}>
                         <button type="button" className="btn btn-outline-secondary">Cancel</button>
                     </Link>
                 </div>
