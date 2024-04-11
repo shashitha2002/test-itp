@@ -34,9 +34,7 @@ OrderSchema.pre('save', async function (next) {
     try {
         for (const productId of order.products) {
             const product = await Product.findById(productId);
-            if (!product) {
-                throw new Error(`Product with ID ${productId} not found.`);
-            }
+
             order.totalPrice += product.disPrice;
         }
 
