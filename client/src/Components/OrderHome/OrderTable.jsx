@@ -38,17 +38,21 @@ const OrderTable = ({orders}) => {
                             {
                                 order.orderStatus === 'pending' ? (
                                     <div className='d-flex flex-row gap-3 justify-content-center'>
-
+                                        <Link to={`/orders/edit/${order._id}`}>
                                             <button type="button" className="btn btn-success"><i
                                                 className="bi bi-pencil-square"> Edit</i>
                                             </button>
+                                        </Link>
 
-                                        <button type="button" className="btn btn-danger">
-                                            <i className="bi bi-trash3-fill"> Delete</i>
-                                        </button>
+                                        <Link to={`/orders/delete/${order._id}`}>
+                                            <button type="button" className="btn btn-danger">
+                                                <i className="bi bi-trash3-fill"> Delete</i>
+                                            </button>
+                                        </Link>
                                     </div>
                                         ) : (
                                     <div className='d-flex flex-row gap-3 justify-content-center'>
+
                                         <button type="button" className="btn btn-dark"><i
                                             className="bi bi-pencil-square" > Edit</i>
                                         </button>

@@ -11,6 +11,8 @@ import Discount from "./Pages/Discount.jsx";
 import Orders from "./Pages/Orders.jsx";
 import OrderTable from "./Components/OrderHome/OrderTable.jsx";
 import ShowSingleOrder from "./Components/OrderHome/ShowSingleOrder.jsx";
+import EditOrder from "./Pages/EditOrder.jsx";
+import DeleteOrder from "./Pages/DeleteOrder.jsx";
 
 class App extends Component {
     render() {
@@ -28,7 +30,8 @@ class App extends Component {
                 <Route path='/orders' element={<Orders/>}></Route>
                 <Route path='/orders/orderTable' element={<OrderTable/>}></Route>
                 <Route path='/orders/show/:id' element={<ShowSingleOrder/>}/>
-
+                <Route path='/orders/edit/:id' element={<EditOrder/>}/>
+                <Route path='/orders/delete/:id' element={<DeleteOrder/>}/>
             </Routes>
 
         );
