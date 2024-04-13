@@ -53,12 +53,8 @@ const OrderTable = ({orders}) => {
                                         ) : (
                                     <div className='d-flex flex-row gap-3 justify-content-center'>
 
-                                        <button type="button" className="btn btn-dark"><i
-                                            className="bi bi-pencil-square" > Edit</i>
-                                        </button>
-
                                         <button type="button" className="btn btn-dark">
-                                            <i className="bi bi-trash3-fill"> Delete</i>
+                                            {order.orderStatus}
                                         </button>
                                     </div>
                                 )}

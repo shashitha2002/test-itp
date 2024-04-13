@@ -1,20 +1,9 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 
-const EditOrderProducts = ({ product, onProductChange }) => {
-    const [allProducts, setAllProducts] = useState([]);
-    const [selectedProduct, setSelectedProduct] = useState(product);
+const EditOrderProducts = ({ products, product, onProductChange }) => {
 
-    useEffect(() => {
-        axios
-            .get(`http://localhost:3500/products/all`)
-            .then((response) => {
-                setAllProducts(response.data.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, []);
+    const [selectedProduct, setSelectedProduct] = useState(product);
 
     const handleProductChange = (e) => {
         const selectedProductId = e.target.value;
@@ -25,7 +14,7 @@ const EditOrderProducts = ({ product, onProductChange }) => {
     return (
         <select className="form-select" aria-label="Default select example" value={selectedProduct} onChange={handleProductChange}>
             <option value="">Select a product</option>
-            {allProducts.map((product) => (
+            {products.map((product) => (
                 <option key={product._id} value={product._id}>
                     {product.name}
                 </option>

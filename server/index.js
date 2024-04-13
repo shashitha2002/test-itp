@@ -8,8 +8,15 @@ const PORT = process.env.PORT || 3500;
 const app = express();
 
 app.use(express.json());
+app.use(express.static('public'))
 
-app.use(cors());
+const corsOptions = {
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 
 app.use('/products',productRoutes)
 app.use('/orders',OrderRoutes)

@@ -13,12 +13,13 @@ import OrderTable from "./Components/OrderHome/OrderTable.jsx";
 import ShowSingleOrder from "./Components/OrderHome/ShowSingleOrder.jsx";
 import EditOrder from "./Pages/EditOrder.jsx";
 import DeleteOrder from "./Pages/DeleteOrder.jsx";
+import NoPage from "./Pages/NoPage.jsx";
 
 class App extends Component {
     render() {
         return (
             <Routes>
-                <Route path='/' element={<ShowProducts/>}/>
+                <Route path='/products' element={<ShowProducts/>}/>
                 <Route path="/card" element={<ProductCard/>} />
                 <Route path='/table' element={<ShowProducts/>}/>
                 <Route path='/products/edit/:id' element={<EditProduct/>}/>
@@ -32,6 +33,7 @@ class App extends Component {
                 <Route path='/orders/show/:id' element={<ShowSingleOrder/>}/>
                 <Route path='/orders/edit/:id' element={<EditOrder/>}/>
                 <Route path='/orders/delete/:id' element={<DeleteOrder/>}/>
+                <Route path="*" element={<NoPage/>} />
             </Routes>
 
         );

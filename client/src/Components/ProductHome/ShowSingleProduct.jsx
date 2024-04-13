@@ -39,6 +39,7 @@ const ShowSingleProduct = () => {
                 setLoading(false)
             })
             .catch((error) => {
+
                 setLoading(false)
                 alert('An error happened. Please Check console')
                 console.log(error)
@@ -52,10 +53,12 @@ const ShowSingleProduct = () => {
             {loading ? <Spinner/> : ''}
             <div className='border m-xxl-5 p-4 bg-dark bg-opacity-10'>
                 <h3 className='text-center p-5'>{name}</h3>
-                <div>
-                    <img
-                        src={imageUrl}
-                        className="img-fluid rounded d-block mx-auto" alt="..."/>
+                <div style={{display:'flex', justifyContent: 'center'}}>
+                    <div style={{width: '30vw'}}>
+                        <img
+                            src={`http://localhost:3500/images/${imageUrl}`}
+                            className="img-fluid rounded d-block mx-auto" alt="productImage"/>
+                    </div>
                 </div>
                 <div className='mb-3 p-5'>
                     <h3 className='text-center'>{description}</h3>
@@ -79,12 +82,12 @@ const ShowSingleProduct = () => {
 
                 <div className='mb-3 p-2'>
                     <h4>Manufacture Date</h4>
-                    <div>{format(manufactureDate, 'yyyy-MM-dd')}</div>
+                    <div style={{color: 'blue', fontWeight: 'bold'}}>{format(manufactureDate, 'yyyy-MM-dd')}</div>
                 </div>
 
                 <div className='mb-3 p-2'>
-                    <h4>Expiry Date</h4>
-                    <div>{format(expireDate, 'yyyy-MM-dd')}</div>
+                    <h4>Expiry Dates</h4>
+                    <div className='zoom-in-out-box'>{format(expireDate, 'yyyy-MM-dd')}</div>
                 </div>
 
                 <div className='mb-3 p-2'>

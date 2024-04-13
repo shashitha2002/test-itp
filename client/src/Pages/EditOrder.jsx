@@ -12,7 +12,8 @@ const EditOrder = () => {
     const [products, setProducts] = useState([]);
     const [orderStatus, setOrderStatus] = useState('');
     const { id } = useParams();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [allProducts, setAllProducts] = useState([]);
 
     useEffect(() => {
         axios
@@ -21,6 +22,14 @@ const EditOrder = () => {
                 setUserId(response.data.userId);
                 setProducts(response.data.products);
                 setOrderStatus(response.data.orderStatus);
+                axios
+                    .get(`http://localhost:3500/products`)
+                    .then((response) => {
+                        setAllProducts(response.data.data);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
             })
             .catch((error) => {
                 console.log(error);
@@ -59,7 +68,7 @@ const EditOrder = () => {
     return (
         <div>
             <div>
-                <BackButton destination={'/'} />
+                <BackButton destination={'/orders'} />
                 <h1 className='text-center'>Edit Order</h1>
             </div>
             {loading ? <Spinner /> : ''}
@@ -74,7 +83,7 @@ const EditOrder = () => {
                     <label className="form-label">Products</label>
                     {products.map((product, index) => (
                         <div key={index} className='p-3'>
-                            <EditOrderProducts product={product} onProductChange={(newProductId) => handleProductChange(index, newProductId)} />
+                            <EditOrderProducts products={allProducts} product={product} onProductChange={(newProductId) => handleProductChange(index, newProductId)} />
                         </div>
                     ))}
                 </div>

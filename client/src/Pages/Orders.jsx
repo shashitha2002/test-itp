@@ -11,16 +11,18 @@ const Orders = () => {
 
     useEffect( () => {
         setLoading(true)
-        axios
-            .get('http://localhost:3500/orders/all')
-            .then((response) => {
-                setOrders(response.data.data);
-                setLoading(false)
-            })
-            .catch((error) => {
-                console.log(error);
-                setLoading(false);
-            })
+        setTimeout(() => {
+            axios
+                .get('http://localhost:3500/orders/all')
+                .then((response) => {
+                    setOrders(response.data.data);
+                    setLoading(false)
+                })
+                .catch((error) => {
+                    console.log(error);
+                    setLoading(false);
+                })
+        },2500)
     },[])
 
     return (

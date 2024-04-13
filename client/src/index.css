@@ -1,0 +1,20 @@
+.zoom-in-out-box {
+    margin: 24px;
+    width: 100px;
+    height: 50px;
+    animation: zoom-in-zoom-out 1s ease infinite;
+    color: red;
+    font-weight: bold;
+}
+
+@keyframes zoom-in-zoom-out {
+    0% {
+        transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(1.5, 1.5);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}

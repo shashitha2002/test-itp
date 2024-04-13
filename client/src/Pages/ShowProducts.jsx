@@ -15,16 +15,18 @@ const ShowProducts = () => {
 
     useEffect(() => {
         setLoading(true);
-        axios
-            .get('http://localhost:3500/products/all')
-            .then((response) => {
-                setProducts(response.data.data);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.log(error);
-                setLoading(false);
-            })
+        setTimeout(()=> {
+            axios
+                .get('http://localhost:3500/products')
+                .then((response) => {
+                    setProducts(response.data.data);
+                    setLoading(false);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    setLoading(false);
+                })
+        },1000)
     }, []);
 
 
@@ -36,10 +38,6 @@ const ShowProducts = () => {
 
             {loading ? (
                 <Spinner/>
-            ) : showType === 'card' ? (
-
-
-                <ProductCard products={products} />
             ) : (
                 <ProductTable products={products} search={search}/>
             )}

@@ -22,7 +22,7 @@ const GetOrderProducts = ({product}) => {
     return(
 
         <div className="card p-2" style={{ width: '18rem' }}>
-            <img src={image} className="card-img-top" alt="..."/>
+            <img src={`http://localhost:3500/images/${image}`} className="card-img-top" alt="..."/>
             <div className="card-body">
                 <p className="card-text">{productName}</p>
                 {discount === 0 ? (

@@ -16,6 +16,7 @@ const EditProduct = () => {
     const [loading,setLoading] = useState(false);
     const navigate = useNavigate();
     const [ingredients, setIngredients] = useState('');
+    const [discount, setDiscount] = useState('');
     const {id} = useParams()
 
     useEffect(() => {
@@ -31,6 +32,7 @@ const EditProduct = () => {
                 setPrice(res.data.price);
                 setImageUrl(res.data.imageUrl);
                 setLoading(false)
+                setDiscount(res.data.discount)
             })
             .catch((error) => {
                 setLoading(false)
@@ -40,37 +42,33 @@ const EditProduct = () => {
     }, [id])
 
 
-    const handleEditProduct = () => {
+    const handleEditProduct = async () => {
+        try {
+            setLoading(true);
+            const formData = new FormData();
+            formData.append('imageUrl', imageUrl);
+            formData.append('name', name);
+            formData.append('description', description);
+            formData.append('ingredients', ingredients);
+            formData.append('expireDate', expireDate);
+            formData.append('manufactureDate', manufactureDate);
+            formData.append('price', price);
+            formData.append('discount', discount);
 
-        const data = {
-            name,
-            description,
-            ingredients,
-            expireDate,
-            manufactureDate,
-            price,
-            imageUrl,
+            console.log(imageUrl)
+
+            // Update the existing product with the new data
+            await axios.put(`http://localhost:3500/products/edit/${id}`, formData);
+
+            setLoading(false);
+            enqueueSnackbar('Product Updated Successfully', { variant: 'success' });
+            navigate('/');
+        } catch (error) {
+            setLoading(false);
+            enqueueSnackbar('Error', { variant: 'error' });
+            console.log(error);
         }
-
-        setLoading(true);
-
-        axios
-            .put(`http://localhost:3500/products/edit/${id}`,data)
-            .then(() => {
-                setLoading(false);
-                enqueueSnackbar('Product Updated Successfully',{variant: 'success'})
-                navigate('/');
-
-            })
-            .catch((error) => {
-                setLoading(false);
-                //alert('An error happened. Please Check console')
-                enqueueSnackbar('Error',{variant:'error'});
-                console.log(error);
-            })
-
-
-    }
+    };
 
     return(
         <div>
@@ -119,8 +117,8 @@ const EditProduct = () => {
 
                     <div className="mb-3">
                         <label className="form-label">Image Url</label>
-                        <input type="text" className="form-control"
-                               aria-describedby="emailHelp" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)}/>
+                        <input type="file" className="form-control"
+                               aria-describedby="emailHelp" onChange={(e) => setImageUrl(e.target.files[0])}/>
                     </div>
 
                     <button type="submit" className="border border-0 btn btn-success" onClick={handleEditProduct}>Submit</button>
