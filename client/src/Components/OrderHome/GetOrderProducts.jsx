@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import {url} from '../../constant/config.js';
 const GetOrderProducts = ({product}) => {
 
     const [productName,setProductName] = useState('');
@@ -9,7 +10,7 @@ const GetOrderProducts = ({product}) => {
     const [discount,setDiscount] = useState(0);
     useEffect(() => {
         axios
-            .get(`http://localhost:3500/products/${product}`)
+            .get(`${url}/products/${product.product}`)
             .then((response) => {
                 setProductName(response.data.name)
                 setImage(response.data.imageUrl)
@@ -22,7 +23,7 @@ const GetOrderProducts = ({product}) => {
     return(
 
         <div className="card p-2" style={{ width: '18rem' }}>
-            <img src={`http://localhost:3500/images/${image}`} className="card-img-top" alt="..."/>
+            <img src={`${url}/images/${image}`} className="card-img-top" alt="..."/>
             <div className="card-body">
                 <p className="card-text">{productName}</p>
                 {discount === 0 ? (

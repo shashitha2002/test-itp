@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import {Product} from "./productModel.js";
 
 const OrderSchema = mongoose.Schema( {
     userId: {
@@ -7,9 +6,15 @@ const OrderSchema = mongoose.Schema( {
         required: true
     },
     products: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product',
-        required: true
+        product : {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Products',
+            required: true
+        },
+        quantity : {
+            type : Number,
+            required: true
+        }
     }],
     totalPrice: {
         type: Number,
@@ -27,22 +32,25 @@ const OrderSchema = mongoose.Schema( {
     }
     )
 
-OrderSchema.pre('save', async function (next) {
-    const order = this;
-    order.totalPrice = 0;
-
-    try {
-        for (const productId of order.products) {
-            const product = await Product.findById(productId);
-
-            order.totalPrice += product.disPrice;
-        }
-
-        next();
-    } catch (error) {
-        next(error);
-    }
-});
+// OrderSchema.pre('save', async function (next) {
+//     const order = this;
+//     order.totalPrice = 0;
+//
+//     try {
+//         for (const product of order.products) {
+//             for(const productId of product._id)
+//             {
+//                 const product = await Product.findById(productId);
+//
+//                 order.totalPrice += product.disPrice;
+//             }
+//         }
+//
+//         next();
+//     } catch (error) {
+//         next(error);
+//     }
+// });
 
 
 export const Order = mongoose.model('Orders', OrderSchema);

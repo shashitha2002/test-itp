@@ -5,6 +5,7 @@ import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
 import {enqueueSnackbar} from "notistack";
 import EditOrderProducts from "../Components/OrderHome/EditOrderProducts.jsx";
+import {url} from '../constant/config.js';
 
 const EditOrder = () => {
     const [loading, setLoading] = useState(false);
@@ -17,13 +18,13 @@ const EditOrder = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:3500/orders/${id}`)
+            .get(`${url}/orders/${id}`)
             .then((response) => {
                 setUserId(response.data.userId);
                 setProducts(response.data.products);
                 setOrderStatus(response.data.orderStatus);
                 axios
-                    .get(`http://localhost:3500/products`)
+                    .get(`${url}/products`)
                     .then((response) => {
                         setAllProducts(response.data.data);
                     })
@@ -53,7 +54,7 @@ const EditOrder = () => {
             orderStatus
         }
 
-        axios.put(`http://localhost:3500/orders/edit/${id}`, data)
+        axios.put(`${url}/orders/edit/${id}`, data)
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Order Updated Successfully',{variant: 'success'})
@@ -68,7 +69,7 @@ const EditOrder = () => {
     return (
         <div>
             <div>
-                <BackButton destination={'/orders'} />
+                <BackButton/>
                 <h1 className='text-center'>Edit Order</h1>
             </div>
             {loading ? <Spinner /> : ''}

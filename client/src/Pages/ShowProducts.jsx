@@ -1,11 +1,10 @@
 import React from 'react';
 import {useState,useEffect} from "react";
 import axios from 'axios';
-import {Link} from "react-router-dom";
 import Spinner from "../Components/Spinner.jsx";
 import NavBar from "../Components/NavBar.jsx";
 import ProductTable from "../Components/ProductHome/ProductTable.jsx";
-import ProductCard from "../Components/ProductHome/ProductCard.jsx";
+import {url} from '../constant/config.js';
 
 const ShowProducts = () => {
     const[products,setProducts] = useState([]);
@@ -17,7 +16,7 @@ const ShowProducts = () => {
         setLoading(true);
         setTimeout(()=> {
             axios
-                .get('http://localhost:3500/products')
+                .get(`${url}/products`)
                 .then((response) => {
                     setProducts(response.data.data);
                     setLoading(false);

@@ -2,8 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import {enqueueSnackbar} from "notistack";
-import BackButton from "../Components/BackButton.jsx";
-import Spinner from "../Components/Spinner.jsx";
+import {url} from '../constant/config.js';
 const DeleteProduct = () => {
 
     const [loading,setLoading] = useState(false);
@@ -14,7 +13,7 @@ const DeleteProduct = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:3500/products/${id}`)
+            .get(`${url}/products/${id}`)
             .then((res) => {
                 setName(res.data.name);
             })
@@ -29,7 +28,7 @@ const DeleteProduct = () => {
     const handleDelete = () => {
         setLoading(true);
         axios
-            .delete(`http://localhost:3500/products/delete/${id}`)
+            .delete(`${url}/products/delete/${id}`)
             .then(() => {
                 setLoading(false)
                 enqueueSnackbar('Product is Deleted successfully',{variant:'success'})

@@ -1,4 +1,4 @@
-import multer from 'multer';
+
 import express from "express";
 import {Product} from "../models/productModel.js";
 import upload from "../multerConfig.js";
@@ -90,6 +90,7 @@ router.put('/edit/:id',upload.single('imageUrl'),async (req,res) => {
             ingredients: req.body.ingredients,
             expireDate: req.body.expireDate,
             manufactureDate: req.body.manufactureDate,
+            quantity: req.body.quantity,
             price: req.body.price,
             discount: req.body.discount,
             disPrice: (parseInt(req.body.price) * (100 - parseInt(req.body.discount))) / 100

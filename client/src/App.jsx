@@ -14,6 +14,10 @@ import ShowSingleOrder from "./Components/OrderHome/ShowSingleOrder.jsx";
 import EditOrder from "./Pages/EditOrder.jsx";
 import DeleteOrder from "./Pages/DeleteOrder.jsx";
 import NoPage from "./Pages/NoPage.jsx";
+import ProductList from "./Pages/ProductList.jsx";
+import Cart from "./Pages/Cart.jsx";
+import MyOrders from "./Pages/MyOrders.jsx";
+import OrderReport from "./Pages/OrderReport.jsx";
 
 class App extends Component {
     render() {
@@ -27,13 +31,17 @@ class App extends Component {
                 <Route path='/products/add' element={<AddProduct/>}/>
                 <Route path='/products/show/:id' element={<ShowSingleProduct/>}/>
                 <Route path='/products/discount' element={<Discount/>}/>
-                <Route path='/products/addDiscount/:id' element={<AddDiscount/>}></Route>
+                <Route path='/products/addDiscount/:id' element={<AddDiscount/>}/>
                 <Route path='/orders' element={<Orders/>}></Route>
-                <Route path='/orders/orderTable' element={<OrderTable/>}></Route>
+                <Route path='/orders/orderTable' element={<OrderTable/>}/>
                 <Route path='/orders/show/:id' element={<ShowSingleOrder/>}/>
                 <Route path='/orders/edit/:id' element={<EditOrder/>}/>
                 <Route path='/orders/delete/:id' element={<DeleteOrder/>}/>
+                <Route path='/productList' element={<ProductList/>}/>
+                <Route path='/cart' element={<Cart/>}/>
                 <Route path="*" element={<NoPage/>} />
+                <Route path='/myOrders' element={<MyOrders/>}/>
+                <Route path='/orderReport' element={<OrderReport/>}></Route>
             </Routes>
 
         );

@@ -4,6 +4,7 @@ import {useNavigate,useParams} from "react-router-dom";
 import {enqueueSnackbar} from "notistack";
 import Spinner from "../Components/Spinner.jsx";
 import BackButton from "../Components/BackButton.jsx";
+import {url} from '../constant/config.js';
 
 const EditProduct = () => {
 
@@ -22,7 +23,7 @@ const EditProduct = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:3500/products/${id}`)
+            .get(`${url}/products/${id}`)
             .then((res) => {
                 setName(res.data.name);
                 setDescription(res.data.description);
@@ -58,7 +59,7 @@ const EditProduct = () => {
             console.log(imageUrl)
 
             // Update the existing product with the new data
-            await axios.put(`http://localhost:3500/products/edit/${id}`, formData);
+            await axios.put(`${url}/products/edit/${id}`, formData);
 
             setLoading(false);
             enqueueSnackbar('Product Updated Successfully', { variant: 'success' });
@@ -73,7 +74,7 @@ const EditProduct = () => {
     return(
         <div>
             <div>
-                <BackButton destination={'/'}/>
+                <BackButton/>
                 <h1 className='text-center'>Edit Product</h1>
             </div>
             {loading ? <Spinner/> : ''}

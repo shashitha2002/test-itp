@@ -3,6 +3,7 @@ import axios from "axios";
 import {enqueueSnackbar} from "notistack";
 import {Link, useParams} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
+import {url} from '../constant/config.js';
 
 
 const AddDiscount = () => {
@@ -17,7 +18,7 @@ const AddDiscount = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:3500/products/${id}`)
+            .get(`${url}/products/${id}`)
             .then((res) => {
                 setName(res.data.name);
                 setLoading(false)
@@ -37,7 +38,7 @@ const AddDiscount = () => {
         setLoading(true);
 
         axios
-            .put(`http://localhost:3500/products/discount/${id}`,data)
+            .put(`${url}/products/discount/${id}`,data)
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('discount added Successfully',{variant: 'success'})

@@ -5,6 +5,7 @@ import axios from "axios";
 import {useParams} from "react-router-dom";
 import GetOrderProducts from "./GetOrderProducts.jsx";
 import GetTotalPrice from "./GetTotalPrice.jsx";
+import {url} from '../../constant/config.js';
 const ShowSingleOrder = () => {
     const [loading,setLoading] = useState(false);
     const [orderId, setOrderId] = useState('');
@@ -17,7 +18,7 @@ const ShowSingleOrder = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:3500/orders/${id}`)
+            .get(`${url}/orders/${id}`)
             .then((response) => {
                 setOrderId(response.data._id)
                 setUserId(response.data.userId);
@@ -34,7 +35,7 @@ const ShowSingleOrder = () => {
 
     return(
         <div>
-            <BackButton destination={'/orders'}/>
+            <BackButton/>
             {loading ? <Spinner/> : ''}
             <div className='border m-xxl-5 p-4 bg-dark bg-opacity-10'>
                 <div className='border p-4 m-5 bg-white'>

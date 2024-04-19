@@ -4,6 +4,7 @@ import BackButton from "../Components/BackButton.jsx";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {enqueueSnackbar} from "notistack";
+import {url} from '../constant/config.js';
 const AddProduct = () => {
 
     const [name,setName] = useState('');
@@ -39,7 +40,7 @@ const AddProduct = () => {
         console.log(imageUrl)
         setLoading(true);
         axios
-            .post('http://localhost:3500/products',formData)
+            .post(`${url}/products`,formData)
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Product Created successfully', {variant: 'success'});
@@ -64,7 +65,7 @@ const AddProduct = () => {
         <div className=''>
 
             <div>
-                <BackButton destination={'/'}/>
+                <BackButton/>
                 <h1 className='text-center'>Add New Product</h1>
             </div>
 

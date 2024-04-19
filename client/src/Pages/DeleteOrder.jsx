@@ -4,6 +4,8 @@ import axios from "axios";
 import {enqueueSnackbar} from "notistack";
 import BackButton from "../Components/BackButton.jsx";
 import Spinner from "../Components/Spinner.jsx";
+import {url} from '../constant/config.js';
+
 const DeleteOrder = () => {
 
     const [loading, setLoading] = useState(false);
@@ -13,7 +15,7 @@ const DeleteOrder = () => {
     const handleDelete = () => {
         setLoading(true);
         axios
-            .delete(`http://localhost:3500/orders/delete/${id}`)
+            .delete(`${url}/orders/delete/${id}`)
             .then(() => {
                 setLoading(false)
                 enqueueSnackbar('order is Deleted successfully',{variant:'success'})
@@ -32,7 +34,7 @@ const DeleteOrder = () => {
     return (
         <div>
             <div>
-                <BackButton destination={'/orders'}/>
+                <BackButton/>
             </div>
             {loading ? <Spinner/> : ''}
             <div className="d-flex flex-column bg-secondary-subtle m-xl-5 p-lg-5 justify-content-center align-items-center">

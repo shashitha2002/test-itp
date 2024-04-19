@@ -2,23 +2,20 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Link,useNavigate} from "react-router-dom";
 import Spinner from "../Components/Spinner.jsx";
-import ProductTable from "../Components/ProductHome/ProductTable.jsx";
 import BackButton from "../Components/BackButton.jsx";
+import {url} from '../constant/config.js';
 
 const Discount = () => {
 
     const[products,setProducts] = useState([]);
-    const [price,setPrice] = useState(0);
-    const [disPrice,setDisPrice] = useState(0);
-    const [discount,setDiscount] = useState(0);
     const [loading,setLoading] =useState(false);
-    const navigate = useNavigate();
+
 
     useEffect(() => {
         setLoading(true);
         setTimeout(() => {
             axios
-                .get('http://localhost:3500/products')
+                .get(`${url}/products`)
                 .then((response) => {
                     setProducts(response.data.data);
                     setLoading(false);
@@ -35,7 +32,7 @@ const Discount = () => {
 
         <div className='p-4 '>
             <div>
-                <BackButton destination={'/'}/>
+                <BackButton/>
                 <h2 className='text-center p-2'>Add New Product</h2>
             </div>
             {loading ? (

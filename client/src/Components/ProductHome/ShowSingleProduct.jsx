@@ -4,7 +4,7 @@ import axios from "axios";
 import BackButton from "../BackButton.jsx";
 import Spinner from "../Spinner.jsx";
 import  { format } from 'date-fns';
-
+import {url} from '../../constant/config.js';
 
 const ShowSingleProduct = () => {
 
@@ -17,14 +17,13 @@ const ShowSingleProduct = () => {
     const [disPrice,setDisPrice] = useState(0)
     const [imageUrl,setImageUrl] = useState('')
     const [loading,setLoading] = useState(false);
-    const navigate = useNavigate();
     const [ingredients, setIngredients] = useState('');
     const {id} = useParams()
 
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:3500/products/${id}`)
+            .get(`${url}/products/${id}`)
             .then((res) => {
                 setName(res.data.name);
                 setDescription(res.data.description);
@@ -49,14 +48,14 @@ const ShowSingleProduct = () => {
 
     return(
         <div>
-            <BackButton destination={'/'}/>
+            <BackButton/>
             {loading ? <Spinner/> : ''}
             <div className='border m-xxl-5 p-4 bg-dark bg-opacity-10'>
                 <h3 className='text-center p-5'>{name}</h3>
                 <div style={{display:'flex', justifyContent: 'center'}}>
                     <div style={{width: '30vw'}}>
                         <img
-                            src={`http://localhost:3500/images/${imageUrl}`}
+                            src={`${url}/images/${imageUrl}`}
                             className="img-fluid rounded d-block mx-auto" alt="productImage"/>
                     </div>
                 </div>

@@ -10,12 +10,12 @@ router.post('/add',async (req,res) => {
 
         const newOrder = {
             userId :req.body.userId,
-            products :req.body.products,
-            totalPrice :req.body.totalPrice,
+            products :req.body.cart,
+            totalPrice :req.body.total,
             orderStatus :req.body.orderStatus,
 
         }
-
+        console.log(newOrder)
         const order =await Order.create(newOrder);
 
         res.status(201).send(order);
@@ -29,7 +29,7 @@ router.post('/add',async (req,res) => {
 //show all the products
 router.get('/all',async (req,res) => {
     try {
-        const orders = await Order.find({});
+        const orders = await Order.find().populate({path:'products.product'});
 
         res.status(200).json({
             count:orders.length,
@@ -41,6 +41,19 @@ router.get('/all',async (req,res) => {
         res.status(500).send({message:error.message});
     }
 })
+
+
+// router.get('/sells',async (req,res) => {
+//     try {
+//         const orderData = await Order.find().populate({path:'products.product'});
+//
+//         res.status(200).json(orderData);
+//
+//     }catch (error) {
+//         console.log(error);
+//         res.status(500).send({message:error.message});
+//     }
+// })
 
 
 //view one order by the ID
@@ -114,5 +127,6 @@ router.delete('/delete/:id',async(req,res) => {
         res.status(500).send({ message: "Internal server error" });
     }
 })
+
 
 export default router;
