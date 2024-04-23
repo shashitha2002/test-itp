@@ -1,6 +1,6 @@
 import express from "express";
-import { Staff } from '../models/StaffModel.js';
-import { Salary } from '../models/SalaryModel.js';
+import {Staff} from '../models/StaffModel.js';
+import {Salary} from '../models/SalaryModel.js';
 
 const router = express.Router();
 
@@ -30,10 +30,11 @@ router.post('/addStaff', async (req, res) => {
 // get all staff details (testing purpose only)
 router.get('/staff', async (req, res) => {
     try {
-        const staff = await Staff.findAll();
+        const staff = await Staff.find({});
         res.status(200).json(staff);
     }
     catch (e) {
+        console.log(e);
         res.status(500).json(e);
     }
 })
