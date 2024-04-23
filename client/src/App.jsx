@@ -16,8 +16,10 @@ import DeleteOrder from "./Pages/DeleteOrder.jsx";
 import NoPage from "./Pages/NoPage.jsx";
 import ProductList from "./Pages/ProductList.jsx";
 import Cart from "./Pages/Cart.jsx";
-import MyOrders from "./Pages/MyOrders.jsx";
+//import MyOrders from "./Pages/MyOrders.jsx";
 import OrderReport from "./Pages/OrderReport.jsx";
+import Salary from './Pages/staffSalary/Salary.jsx';
+import CreateSalary from "./Pages/staffSalary/CreateSalary.jsx";
 
 class App extends Component {
     render() {
@@ -40,8 +42,13 @@ class App extends Component {
                 <Route path='/productList' element={<ProductList/>}/>
                 <Route path='/cart' element={<Cart/>}/>
                 <Route path="*" element={<NoPage/>} />
-                <Route path='/myOrders' element={<MyOrders/>}/>
+                
                 <Route path='/orderReport' element={<OrderReport/>}></Route>
+
+                {/* salary routes */}
+                <Route path='/salary' element={<Salary/>} />
+                <Route path='/salary/editSalary' element={<Salary/>} />
+                <Route path='/salary/add' element={<CreateSalary/>} />
             </Routes>
 
         );

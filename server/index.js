@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import productRoutes from "./routes/productRoutes.js";
 import OrderRoutes from "./routes/OrderRoutes.js"
+import SalaryRoutes from "./routes/salaryRoutes.js"
 import cors from "cors";
 import 'dotenv/config';
 const PORT = process.env.PORT || 3500;
@@ -20,6 +21,7 @@ app.use(cors(corsOptions));
 
 app.use('/products',productRoutes)
 app.use('/orders',OrderRoutes)
+app.use('/salary',SalaryRoutes);
 
 const mongoBDnUrl = process.env.MONGODB_URL;
 
