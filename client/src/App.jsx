@@ -21,6 +21,7 @@ import OrderReport from "./Pages/OrderReport.jsx";
 import Salary from './Pages/staffSalary/Salary.jsx';
 import CreateSalary from "./Pages/staffSalary/CreateSalary.jsx";
 import StaffSalary from './Pages/staffSalary/StaffSalary.jsx';
+import CreateStaff from './Pages/staffSalary/createStaff.jsx';
 
 class App extends Component {
     render() {
@@ -51,6 +52,8 @@ class App extends Component {
                 <Route path='/salary/editSalary' element={<Salary/>} />
                 <Route path='/salary/add' element={<CreateSalary/>} />
                 <Route path='/staff' element={<StaffSalary/>} />
+                <Route path='/staff/add' element={<CreateStaff/>} />
+
             </Routes>
 
         );
