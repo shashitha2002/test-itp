@@ -32,8 +32,9 @@ const EditProduct = () => {
                 setManufactureDate(res.data.manufactureDate);
                 setPrice(res.data.price);
                 setImageUrl(res.data.imageUrl);
-                setLoading(false)
+
                 setDiscount(res.data.discount)
+                setLoading(false)
             })
             .catch((error) => {
                 setLoading(false)
