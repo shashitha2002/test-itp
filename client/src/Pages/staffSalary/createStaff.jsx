@@ -9,7 +9,7 @@ const CreateStaff = () => {
 
     const [staffName,setStaffName] = useState('')
     const [NIC,setNIC] = useState('')
-    const [birthDay,setBirthDay] = useState(new Date());
+    const [birthday,setBirthDay] = useState(new Date());
     const [experience,setExperience] = useState(0);
     const navigate = useNavigate();
     const handleAddStaff = async () => {
@@ -17,12 +17,12 @@ const CreateStaff = () => {
         const data = {
             staffName,
             NIC,
-            birthDay,
+            birthday,
             experience
         }
 
-        await axios.get('${url}/salary/addStaff',data)
-            .then((res) => {
+        await axios.post('http://localhost:3500/salary/addStaff',data)
+            .then(() => {
                 enqueueSnackbar('Staff Member Added successfully', {variant: 'success'});
                 navigate('/staff')
             })
@@ -44,7 +44,7 @@ const CreateStaff = () => {
                 <div className="mb-3">
                     <label htmlFor="productName" className="form-label">Staff Name</label>
                     <input type="text" className="form-control" id="productName"
-                           placeholder="Enter the Product Name Here" onChange={(e) => {
+                           placeholder="Enter the Staff Name Here" onChange={(e) => {
                         setStaffName(e.target.value)
                     }}/>
                 </div>
@@ -52,7 +52,7 @@ const CreateStaff = () => {
                 <div className="mb-3">
                     <label htmlFor="productDescription" className="form-label">NIC</label>
                     <input type="text" className="form-control" id="productDescription"
-                           placeholder="Enter the Product Description Here" onChange={(e) => {
+                           placeholder="Enter Staff member's NIC" onChange={(e) => {
                         setNIC(e.target.value)
                     }}/>
                 </div>
@@ -60,7 +60,7 @@ const CreateStaff = () => {
                 <div className="mb-3">
                     <label htmlFor="productIngredients" className="form-label">Birth Day</label>
                     <input type="date" className="form-control" id="productIngredients"
-                           placeholder='Mention Ingredients here. Use "," to enter multiple inputs' onChange={(e) => {
+                            onChange={(e) => {
                         setBirthDay(e.target.value)
                     }}/>
                 </div>
@@ -68,7 +68,7 @@ const CreateStaff = () => {
                 <div className="mb-3">
                     <label htmlFor="productPrice" className="form-label">experience</label>
                     <input type="number" className="form-control" id="productPrice"
-                           placeholder='Mention the Price' onChange={(e) => {
+                           placeholder="ention the staff member's Experience" onChange={(e) => {
                         setExperience(e.target.value)
                     }}/>
                 </div>

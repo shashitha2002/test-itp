@@ -2,6 +2,7 @@ import express from "express";
 import {Staff} from '../models/StaffModel.js';
 import {Salary} from '../models/SalaryModel.js';
 
+
 const router = express.Router();
 
 // server testing
@@ -35,6 +36,56 @@ router.get('/staff', async (req, res) => {
     }
     catch (e) {
         console.log(e);
+        res.status(500).json(e);
+    }
+})
+
+//view staff by the staff ID
+router.get('/staff/:id',async (req,res) => {
+    try{
+        const { id } = req.params;
+        const result = await Staff.findById(id)
+
+        if(!result){
+            return res.status(404).send({msg:"Staff member con ont be found"})
+        }
+
+        return res.status(200).json(result)
+
+    }catch (e) {
+        console.log(e)
+        res.status(500).json(e);
+    }
+})
+
+//update staff details
+router.put('/staff/update/:id',async (req,res) => {
+    const {id} = req.params;
+
+    const result = await Staff.findByIdAndUpdate(id,req.body);
+
+    if(!result){
+        return res.status(404).send({msg:"Staff member con ont be found"})
+    }
+
+    return res.status(200).send({msg:"Staff member updated successfully"})
+
+})
+
+//delete a staff member
+router.delete('/staff/delete/:id', async (req,res) => {
+    try {
+        const{id} = req.params;
+
+        const result = await Staff.findByIdAndDelete(id);
+
+        if (!result){
+            return res.status(400).send({message:"staff cannot be found"})
+        }
+
+        return res.status(200).send({message:"staff member deleted successfully"})
+
+    }catch (e) {
         res.status(500).json(e);
     }
 })

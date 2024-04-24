@@ -97,7 +97,7 @@ function Salary() {
                                 <td>{salaryItem.OTSalary}</td>
                                 <td>{salaryItem.totalSalary}</td>
                                 <td>
-                                <Link to="/update"><button className="btn btn-success">Update</button></Link>
+                                <Link to="/staff/"><button className="btn btn-success">Update</button></Link>
                                     {<button>Delete</button>}
                                 </td>
                             </tr>

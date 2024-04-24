@@ -8,7 +8,6 @@ function StaffSalary() {
     const getStaff = async()=>{
         await axios.get("http://localhost:3500/salary/staff")
         .then((res)=>{
-            console.log(res.data);
             setStaff(res.data);
         })
         .catch((e)=>{
@@ -48,13 +47,19 @@ function StaffSalary() {
                     <td className='text-center'>
                         <div className='d-flex flex-row gap-3 justify-content-center'>
 
-                            <Link to={`/products/edit/${staff._id}`}>
+                            <Link to={`/staff/view/${staff._id}`}>
+                                <button type="button" className="btn btn-link">
+                                     View
+                                </button>
+                            </Link>
+
+                            <Link to={`/staff/edit/${staff._id}`}>
                                 <button type="button" className="btn btn-success"><i
                                     className="bi bi-pencil-square"> Edit</i>
                                 </button>
                             </Link>
 
-                            <Link to={`/products/delete/${staff._id}`}>
+                            <Link to={`/staff/delete/${staff._id}`}>
                                 <button type="button" className="btn btn-danger">
                                     <i className="bi bi-trash3-fill"> Delete</i>
                                 </button>
