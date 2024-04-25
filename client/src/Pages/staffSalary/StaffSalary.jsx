@@ -29,6 +29,7 @@ function StaffSalary() {
                 <th className='text-center'>NIC</th>
                 <th className='text-center'>Birth day</th>
                 <th className='text-center'>Experience</th>
+                <th className='text-center'>Actions</th>
 
             </tr>
             </thead>
@@ -48,7 +49,7 @@ function StaffSalary() {
                         <div className='d-flex flex-row gap-3 justify-content-center'>
 
                             <Link to={`/staff/view/${staff._id}`}>
-                                <button type="button" className="btn btn-link">
+                                <button type="button" className="btn btn-primary">
                                      View
                                 </button>
                             </Link>
@@ -62,6 +63,12 @@ function StaffSalary() {
                             <Link to={`/staff/delete/${staff._id}`}>
                                 <button type="button" className="btn btn-danger">
                                     <i className="bi bi-trash3-fill"> Delete</i>
+                                </button>
+                            </Link>
+
+                            <Link to={`/salary/add/${staff._id}`}>
+                                <button type="button" className="btn btn-warning" style={{borderRadius:"100px"}}>
+                                    Add Salary
                                 </button>
                             </Link>
 

@@ -3,7 +3,7 @@ import BackButton from "../../Components/BackButton.jsx";
 import axios from "axios";
 import {enqueueSnackbar} from "notistack";
 import {useNavigate} from "react-router-dom";
-
+import moment from "moment";
 
 const CreateStaff = () => {
 
@@ -14,21 +14,52 @@ const CreateStaff = () => {
     const navigate = useNavigate();
     const handleAddStaff = async () => {
 
-        const data = {
-            staffName,
-            NIC,
-            birthday,
-            experience
+        const selectedDate = new Date(birthday);
+        const currentDate = new Date();
+
+        if(!staffName || !NIC || !birthday || !experience){
+            return enqueueSnackbar('All the fields required', {variant: 'error'});
+        }
+        else{
+            if(typeof(staffName) === "string" && /^[a-zA-Z]/.test(staffName)){
+                if(typeof(NIC) === "string" && NIC.length === 10){
+                    if(selectedDate.toDateString() !== currentDate.toDateString()){
+                        if(experience > 0 && experience <= 30){
+
+                            const data = {
+                                staffName,
+                                NIC,
+                                birthday,
+                                experience
+                            }
+
+                            await axios.post('http://localhost:3500/salary/addStaff',data)
+                                .then(() => {
+                                    enqueueSnackbar('Staff Member Added successfully', {variant: 'success'});
+                                    navigate('/staff')
+                                })
+                                .catch((error) => {
+                                    console.log(error)
+                                })
+                        }
+                        else{
+                            return enqueueSnackbar('Invalid Experience', {variant: 'error'});
+                        }
+                    }
+                    else {
+                        return enqueueSnackbar('Invalid BirthDay', {variant: 'error'});
+                    }
+                }
+                else{
+                    return enqueueSnackbar('Invalid user NIC', {variant: 'error'});
+                }
+            }
+            else{
+                return enqueueSnackbar('Invalid user name', {variant: 'error'});
+            }
         }
 
-        await axios.post('http://localhost:3500/salary/addStaff',data)
-            .then(() => {
-                enqueueSnackbar('Staff Member Added successfully', {variant: 'success'});
-                navigate('/staff')
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+
 
     }
 
@@ -42,7 +73,7 @@ const CreateStaff = () => {
 
             <div className='border m-xxl-5 p-4 bg-dark bg-opacity-10'>
                 <div className="mb-3">
-                    <label htmlFor="productName" className="form-label">Staff Name</label>
+                    <label className="form-label">Staff Name</label>
                     <input type="text" className="form-control" id="productName"
                            placeholder="Enter the Staff Name Here" onChange={(e) => {
                         setStaffName(e.target.value)
@@ -50,23 +81,25 @@ const CreateStaff = () => {
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="productDescription" className="form-label">NIC</label>
-                    <input type="text" className="form-control" id="productDescription"
+                    <label className="form-label">NIC</label>
+                    <input type="number" className="form-control" id="productDescription"
                            placeholder="Enter Staff member's NIC" onChange={(e) => {
                         setNIC(e.target.value)
                     }}/>
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="productIngredients" className="form-label">Birth Day</label>
+                    <label className="form-label">Birth Day</label>
                     <input type="date" className="form-control" id="productIngredients"
                             onChange={(e) => {
                         setBirthDay(e.target.value)
-                    }}/>
+                    }}
+                     max={moment().format("YYYY-MM-DD")}
+                    />
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="productPrice" className="form-label">experience</label>
+                    <label className="form-label">experience</label>
                     <input type="number" className="form-control" id="productPrice"
                            placeholder="ention the staff member's Experience" onChange={(e) => {
                         setExperience(e.target.value)

@@ -53,7 +53,7 @@ class App extends Component {
                 {/* salary routes */}
                 <Route path='/salary' element={<Salary/>} />
                 <Route path='/salary/editSalary' element={<Salary/>} />
-                <Route path='/salary/add' element={<CreateSalary/>} />
+                <Route path='/salary/add/:id' element={<CreateSalary/>} />
                 <Route path='/staff' element={<StaffSalary/>} />
                 <Route path='/staff/add' element={<CreateStaff/>} />
                 <Route path='/staff/view/:id' element={<ViewStaff/>} />

@@ -7,12 +7,12 @@ const staffSchema = mongoose.Schema({
     },
 
     NIC: {
-        type: String,
+        type: Number,
         required: true
     },
 
     birthday: {
-        type: String,  // todo - change
+        type: Date,
         required: true
     },
 

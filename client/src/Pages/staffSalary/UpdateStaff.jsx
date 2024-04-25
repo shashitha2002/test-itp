@@ -18,7 +18,7 @@ const UpdateStaff = () => {
         axios.get(`http://localhost:3500/salary/staff/${id}`)
             .then((res) => {
                 setStaffName(res.data.staffName)
-                setNIC(res.data.NIC)
+                setNIC(res.data.NIC.toString())
                 setBirthDay(res.data.birthday.split('T')[0]);
                 setExperience(res.data.experience)
             })
@@ -29,25 +29,54 @@ const UpdateStaff = () => {
 
     const handleUpdateStaff = async () => {
 
+        const selectedDate = new Date(birthday);
+        const currentDate = new Date();
+
         if(!staffName || !NIC || !birthday || !experience){
             return enqueueSnackbar('All the fields required', {variant: 'error'});
         }
+        else{
+            if(typeof(staffName) === "string" && /^[a-zA-Z]/.test(staffName)){
+                if(typeof(NIC) === "string" && NIC.length === 10){
+                    if(selectedDate.toDateString() !== currentDate.toDateString()){
+                        if(experience > 0 && experience <= 30){
 
-        const data = {
-            staffName,
-            NIC,
-            birthday,
-            experience
+                            const data = {
+                                staffName,
+                                NIC,
+                                birthday,
+                                experience
+                            }
+
+                            await axios.put(`http://localhost:3500/salary/staff/update/${id}`,data)
+                                .then(() => {
+                                    enqueueSnackbar('Staff Member updated successfully', {variant: 'success'});
+                                    navigate('/staff')
+                                })
+                                .catch((error) => {
+                                    console.log(error)
+                                })
+                        }
+                        else{
+                            return enqueueSnackbar('Invalid Experience', {variant: 'error'});
+                        }
+                    }
+                    else {
+                        return enqueueSnackbar('Invalid BirthDay', {variant: 'error'});
+                    }
+                }
+                else{
+                    console.log(typeof(NIC))
+                    console.log(NIC.length)
+                    return enqueueSnackbar('Invalid user NIC', {variant: 'error'});
+                }
+            }
+            else{
+                return enqueueSnackbar('Invalid user name', {variant: 'error'});
+            }
         }
 
-        await axios.put(`http://localhost:3500/salary/staff/update/${id}`,data)
-            .then(() => {
-                enqueueSnackbar('Staff Member updated successfully', {variant: 'success'});
-                navigate('/staff')
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+
 
     }
 
@@ -70,7 +99,7 @@ const UpdateStaff = () => {
 
                 <div className="mb-3">
                     <label className="form-label">NIC</label>
-                    <input type="text" className="form-control"  value={NIC}
+                    <input type="number" className="form-control"  value={NIC}
                            placeholder="Enter Staff member's NIC" onChange={(e) => {
                         setNIC(e.target.value)
                     }}/>

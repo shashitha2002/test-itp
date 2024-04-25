@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import axios from 'axios';
 
 function CreateService () {
@@ -12,6 +12,8 @@ function CreateService () {
 
     const navigate = useNavigate();
 
+    const {id} = useParams();
+
     const handleSubmit = () => {
         const data = {
             staffId,
@@ -22,9 +24,9 @@ function CreateService () {
             OTSalary
         };
 
-        axios.post('http://localhost:3500/salary', data)
+        axios.post(`http://localhost:3500/salary/addSalary/${id}`, data)
             .then(() => {
-                navigate('/');
+                navigate('/salary');
             })
             .catch(error => {
                 console.error('Error adding salary:', error);
@@ -40,7 +42,7 @@ function CreateService () {
                     <div className='mb-2'>
                         <label>Staff Id</label>
                         <input type="text" placeholder='Enter Staff Id' className='form-control'
-                            value={staffId} onChange={(e) => setStaffId(e.target.value)} />
+                            value={id} onChange={(e) => setStaffId(e.target.value)} disabled={true}/>
                     </div>
                     <div className='mb-2'>
                         <label>Month</label>

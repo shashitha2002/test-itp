@@ -91,8 +91,11 @@ router.delete('/staff/delete/:id', async (req,res) => {
 })
 
 // add salary
-router.post('/addSalary', async (req, res) => {
-    const staffId = req.body.staffId;
+router.post('/addSalary/:id', async (req, res) => {
+
+    const{id} = req.params;
+
+    const staffId = id;
     const month = req.body.month;
     const workingHours = req.body.workingHours;
     const OTHours = req.body.OTHours;
