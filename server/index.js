@@ -21,9 +21,9 @@ app.use(cors(corsOptions));
 app.use('/products',productRoutes)
 app.use('/orders',OrderRoutes)
 
-const mongoBDnUrl = process.env.MONGODB_URL;
+const mongoDBnUrl = process.env.MONGODB_URL;
 
-mongoose.connect(mongoBDnUrl, {})
+mongoose.connect(mongoDBnUrl, {})
     .then(() => {
         console.log("App connected to the database")
 

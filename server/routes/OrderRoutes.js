@@ -12,33 +12,34 @@ router.post('/add',async (req,res) => {
             userId :req.body.userId,
             products :req.body.cart,
             totalPrice :req.body.total,
+            address:req.body.DeliveryAddress,
             orderStatus :req.body.orderStatus,
 
         }
         console.log(newOrder)
         const order =await Order.create(newOrder);
 
-        res.status(201).send(order);
+        return res.status(201).send(order);
 
     }catch (error) {
         console.log(error);
-        res.status(500).send({message:error.message});
+        return res.status(500).send({message:error.message});
     }
 })
 
-//show all the products
+//show all the orders
 router.get('/all',async (req,res) => {
     try {
         const orders = await Order.find().populate({path:'products.product'});
 
-        res.status(200).json({
+        return res.status(200).json({
             count:orders.length,
             data:orders
         });
 
     }catch (error) {
         console.log(error);
-        res.status(500).send({message:error.message});
+        return res.status(500).send({message:error.message});
     }
 })
 
@@ -66,11 +67,11 @@ router.get('/:id',async (req,res) => {
             res.status(404).send({message:"Order can not be found"});
         }
 
-        res.status(200).json(order);
+        return res.status(200).json(order);
 
     }catch (error) {
         console.log(error);
-        res.status(500).send({message:error.message});
+        return res.status(500).send({message:error.message});
     }
 })
 
@@ -104,7 +105,7 @@ router.put('/edit/:id', async (req, res) => {
         return res.status(200).send({ message: "Order updated successfully" });
     } catch (error) {
         console.log(error);
-        res.status(500).send({ message: "Internal server error" });
+        return res.status(500).send({ message: "Internal server error" });
     }
 });
 

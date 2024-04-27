@@ -1,4 +1,10 @@
-import {ADD_PRODUCT, DECREASE_QUANTITY, DELETE_ITEM, INCREASE_QUANTITY} from './actionTypes.js'
+import {
+    ADD_PRODUCT,
+    DECREASE_PRODUCT_QUANTITY,
+    DECREASE_QUANTITY,
+    DELETE_ITEM,
+    INCREASE_QUANTITY
+} from './actionTypes.js'
 
 const initialState = JSON.parse(localStorage.getItem("cartList")) || {products:[],count:0}
     /*{products:[],count:0}*/
@@ -65,7 +71,7 @@ const productReducer = (state=initialState,action) => {
             let quantity = 0;
             for (let i = 0; i < state.products.length; i++){
                 if(state.products[i]._id === action.payload){
-                    quantity = state.products[i].quantity
+                    quantity = state.products[i].quantity;
                     state.count = state.count - quantity;
                     state.products = state.products.filter( (product) => {return product._id !== action.payload})
                 }
@@ -73,9 +79,18 @@ const productReducer = (state=initialState,action) => {
 
             return {...state}
 
-
         default :
             return state;
+
+
+        case DECREASE_PRODUCT_QUANTITY:
+            let productQuantity = 0;
+            for (let i = 0; i < state.products.length; i++){
+                if(state.products[i]._id === action.payload){
+                    productQuantity = state.products[i].product.quantity--;
+                    console.log(productQuantity)
+                }
+            }
     }
 
 }

@@ -29,7 +29,7 @@ class App extends Component {
                 <Route path='/products/edit/:id' element={<EditProduct/>}/>
                 <Route path='/products/delete/:id' element={<DeleteProduct/>}/>
                 <Route path='/products/add' element={<AddProduct/>}/>
-                <Route path='/products/show/:id' element={<ShowSingleOrder/>}/>
+                <Route path='/products/show/:id' element={<ShowSingleProduct/>}/>
                 <Route path='/products/discount' element={<Discount/>}/>
                 <Route path='/products/addDiscount/:id' element={<AddDiscount/>}/>
                 <Route path='/orders' element={<Orders/>}></Route>

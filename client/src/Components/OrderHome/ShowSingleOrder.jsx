@@ -12,6 +12,7 @@ const ShowSingleOrder = () => {
     const [userId,setUserId] = useState('');
     const [products,setProducts] = useState([]);
     const [totalPrice,setTotalPrice] = useState(0);
+    const [DeliveryAddress,setDeliveryAddress] = useState('')
     const [orderStatus,setOrderStatus] = useState('pending');
     const {id} = useParams()
 
@@ -24,6 +25,7 @@ const ShowSingleOrder = () => {
                 setUserId(response.data.userId);
                 setProducts(response.data.products);
                 setTotalPrice(response.data.totalPrice);
+                setDeliveryAddress(response.data.address);
                 setOrderStatus(response.data.orderStatus);
                 setLoading(false);
             })
@@ -81,6 +83,11 @@ const ShowSingleOrder = () => {
                             </div>
                         ))}
                     </div>
+
+                    <div className='p-4'>
+                        Delivery Address : {DeliveryAddress}
+                    </div>
+
                     <div className='fs-5'>
                         Total price = RS. {totalPrice} /=
                     </div>

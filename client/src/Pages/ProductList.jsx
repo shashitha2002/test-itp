@@ -4,7 +4,7 @@ import {Spinner} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import {enqueueSnackbar} from "notistack";
 import {useDispatch, useSelector} from "react-redux";
-import {addProduct} from "../Redux/actions.js";
+import {addProduct, decreaseProductQuantity} from "../Redux/actions.js";
 import {url} from '../constant/config.js';
 
 const ProductList = () => {
@@ -41,6 +41,7 @@ const ProductList = () => {
 
     const handleCart = (product) => {
         dispatch(addProduct(product))
+        dispatch(decreaseProductQuantity(product))
     }
 
     const goCart = () => {

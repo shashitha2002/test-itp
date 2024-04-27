@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useLocation,useNavigate } from "react-router-dom";
 import BackButton from "../Components/BackButton.jsx";
 import axios from "axios";
@@ -12,14 +12,14 @@ const Cart = () => {
     const cartState = useSelector((state) => {return state});
     const cartCount = useSelector((state) => {return state.count});
     const cartItems = cartState.products;
-
+    const [DeliveryAddress,setDeliveryAddress] = useState('')
     //const cartItems = cartState.products;
     const userId = 'it22322708';
     const orderStatus = 'pending';
     const location = useLocation();
     const cart = cartItems.map((cartItem) => {return {product : cartItem._id,quantity : cartItem.quantity}});
-    const names = location.state.names.filter(name => name.trim() !== '');
-    const uniqueValues = [...new Set(names)];
+    // const names = location.state.names.filter(name => name.trim() !== '');
+    // const uniqueValues = [...new Set(names)];
     const navigate = useNavigate();
 
     //this is the previous code
@@ -65,13 +65,14 @@ const Cart = () => {
             userId,
             cart,
             total,
+            DeliveryAddress,
             orderStatus
         }
 
         axios
             .post(`${url}/orders/add`,data)
             .then(() => {
-                enqueueSnackbar('Product Created successfully', {variant: 'success'});
+                enqueueSnackbar('Order Created successfully', {variant: 'success'});
                 navigate('/orders');
             })
             .catch((error) => {
@@ -89,11 +90,6 @@ const Cart = () => {
 
     const handleDecreaseQuantity = (id) => {
         dispatch(decreaseQuantity(id))
-    }
-
-    const handleCancel  = () => {
-        localStorage.clear();
-        navigate('/productList');
     }
 
     const handleDeleteItem = (id) => {
@@ -136,12 +132,17 @@ const Cart = () => {
 
                 {cartItems.map((product) => (
                     <tr className='border-0' key={product._id}>
-                        <td className='border-0'>{product.name} <i className="btn bi bi-x-circle-fill text-danger" onClick={() => {
-                        handleDeleteItem(product._id)}
-                        }></i></td>
+                        <td className='border-0'>{product.name} <i className="btn bi bi-x-circle-fill text-danger"
+                                                                   onClick={() => {
+                                                                       handleDeleteItem(product._id)
+                                                                   }
+                                                                   }></i></td>
                         <td className='border-0'>
-                            <i className="bi bi-dash-circle-fill" onClick={() => {handleDecreaseQuantity(product._id)}}></i> {product.quantity} <i
-                            className="bi bi-plus-circle-fill" onClick={() => handleIncreaseQuantity(product._id)}></i></td>
+                            <i className="bi bi-dash-circle-fill" onClick={() => {
+                                handleDecreaseQuantity(product._id)
+                            }}></i> {product.quantity} <i
+                            className="bi bi-plus-circle-fill" onClick={() => handleIncreaseQuantity(product._id)}></i>
+                        </td>
                         <td className='border-0'>{product.disPrice * product.quantity}</td>
                     </tr>
                 ))}
@@ -152,9 +153,18 @@ const Cart = () => {
                 <h1>Total Price</h1>
                 <h1>RS. {total} /=</h1>
             </div>
+
+            <div className='p-3 d-flex'>
+                <label className='col-form-label'>Delivery Address</label>
+                <input type="text" className="form-control" placeholder='Enter your delivery address' onChange={(e) => {setDeliveryAddress(e.target.value)}}/>
+            </div>
+
+            <div className='p-3 d-flex'>
+                <button type="button" className="btn btn-warning btn-lg">Pay</button>
+            </div>
+
             <div className='p-3 d-flex'>
                 <button type="button" className="btn btn-success btn-lg" onClick={handleOrder}>Confirm Order</button>
-                <button type="button" className="btn btn-danger" onClick={handleCancel}>cancel Order</button>
             </div>
         </div>
     );

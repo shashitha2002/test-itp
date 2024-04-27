@@ -37,11 +37,11 @@ router.post('/', upload.single('imageUrl'),async (req,res) => {
 
         const product =await Product.create(newProduct);
 
-        res.status(201).send(product);
+        return res.status(201).send(product);
 
     }catch (error) {
         console.log(error);
-        res.status(500).send({message:error.message});
+        return res.status(500).send({message:error.message});
     }
 })
 
@@ -50,14 +50,14 @@ router.get('/',async (req,res) => {
     try {
         const products = await Product.find({});
 
-        res.status(200).json({
+        return res.status(200).json({
             count:products.length,
             data:products
         });
 
     }catch (error) {
         console.log(error);
-        res.status(500).send({message:error.message});
+        return res.status(500).send({message:error.message});
     }
 })
 
@@ -68,11 +68,11 @@ router.get('/:id',async (req,res) => {
         const {id} =req.params;
         const product = await Product.findById(id);
 
-        res.status(200).json(product);
+        return res.status(200).json(product);
 
     }catch (error) {
         console.log(error);
-        res.status(500).send({message:error.message});
+        return res.status(500).send({message:error.message});
     }
 
 
@@ -110,7 +110,7 @@ router.put('/edit/:id',upload.single('imageUrl'),async (req,res) => {
         return res.status(200).send({ message: "Product has been updated successfully" });
     } catch (error) {
         console.log(error);
-        res.status(500).send({ message: error.message });
+        return res.status(500).send({ message: error.message });
     }
 })
 
@@ -128,7 +128,7 @@ router.delete('/delete/:id', async (req,res) => {
         return res.status(200).send({message:"Product deleted successfully"})
 
     }catch (error) {
-        res.status(500).send({message:error.message})
+        return res.status(500).send({message:error.message})
     }
 })
 
@@ -155,10 +155,10 @@ router.put('/discount/:id',async (req,res) => {
 
         await product.save();
 
-        res.status(200).send({ message: "Product updated successfully", product });
+        return res.status(200).send({ message: "Product updated successfully", product });
     } catch (error) {
         console.error(error);
-        res.status(500).send({ message: "Server error" });
+        return res.status(500).send({ message: "Server error" });
     }
 })
 

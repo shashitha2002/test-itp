@@ -1,4 +1,10 @@
-import {ADD_PRODUCT, DECREASE_QUANTITY, DELETE_ITEM, INCREASE_QUANTITY} from './actionTypes.js';
+import {
+    ADD_PRODUCT,
+    DECREASE_PRODUCT_QUANTITY,
+    DECREASE_QUANTITY,
+    DELETE_ITEM,
+    INCREASE_QUANTITY
+} from './actionTypes.js';
 
 
 export const addProduct = (product) => ({
@@ -20,4 +26,10 @@ export const deleteItem = (id) => ({
     type:DELETE_ITEM,
     payload:id
 });
+
+
+export const decreaseProductQuantity = (productId) => ({
+    type: DECREASE_PRODUCT_QUANTITY,
+    payload:productId,
+})
 

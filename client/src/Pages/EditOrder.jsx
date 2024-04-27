@@ -12,6 +12,7 @@ const EditOrder = () => {
     const [userId, setUserId] = useState('');
     const [products, setProducts] = useState([]);
     const [orderStatus, setOrderStatus] = useState('');
+    const [DeliveryAddress,setDeliveryAddress] = useState('')
     const { id } = useParams();
     const navigate = useNavigate();
     const [allProducts, setAllProducts] = useState([]);
@@ -22,6 +23,7 @@ const EditOrder = () => {
             .then((response) => {
                 setUserId(response.data.userId);
                 setProducts(response.data.products);
+                setDeliveryAddress(response.data.address);
                 setOrderStatus(response.data.orderStatus);
                 axios
                     .get(`${url}/products`)
@@ -77,25 +79,33 @@ const EditOrder = () => {
                 <div className="mb-3">
                     <label className="form-label">User Id</label>
                     <input type="text" className="form-control"
-                           aria-describedby="emailHelp" value={userId} onChange={(e) => setUserId(e.target.value)} />
+                           aria-describedby="emailHelp" value={userId} onChange={(e) => setUserId(e.target.value)}/>
                 </div>
 
                 <div className="mb-3">
                     <label className="form-label">Products</label>
                     {products.map((product, index) => (
                         <div key={index} className='p-3'>
-                            <EditOrderProducts products={allProducts} product={product} onProductChange={(newProductId) => handleProductChange(index, newProductId)} />
+                            <EditOrderProducts products={allProducts} product={product}
+                                               onProductChange={(newProductId) => handleProductChange(index, newProductId)}/>
                         </div>
                     ))}
                 </div>
 
                 <div className="mb-3">
                     <label className="form-label">Order Status</label>
-                    <select className="form-select" aria-label="Default select example" onChange={handleOrderStatusChange} value={orderStatus}>
+                    <select className="form-select" aria-label="Default select example"
+                            onChange={handleOrderStatusChange} value={orderStatus}>
                         <option value="pending">pending</option>
                         <option value="shipped">shipped</option>
                         <option value="delivered">delivered</option>
                     </select>
+                </div>
+
+                <div className="mb-3">
+                    <label className="form-label">Delivery Address</label>
+                    <input type="text" className="form-control"
+                           aria-describedby="emailHelp" value={DeliveryAddress} onChange={(e) => setDeliveryAddress(e.target.value)}/>
                 </div>
 
                 <button type="submit" className="border border-0 btn btn-success" onClick={handleSubmit}>Submit</button>
