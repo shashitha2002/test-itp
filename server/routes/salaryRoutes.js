@@ -140,16 +140,37 @@ router.get('/', async (req, res) => {
 });
 
 // get salary for staff member 
-router.get('/staff/:sId', async (req, res) => {
+// router.get('/staffSalary/:sId', async (req, res) => {
+//     try {
+//         const staffId = req.params.sId;
+//         const salary = await Salary.find(staffId);
+//         res.status(200).json(salary);
+//     }
+//     catch (e) {
+//         res.status(500).json(e);
+//     }
+// });
+
+
+router.get('/staffSalary/:staffId', async (req, res) => {
     try {
-        const staffId = req.params.sId;
-        const salary = await Salary.find(staffId);
+        const { staffId } = req.params;
+        const salary = await Salary.find({ staffId });
+
+        if (salary.length === 0) {
+            return res.status(404).json({ message: "Salary data not found for the specified staff ID." });
+        }
+
         res.status(200).json(salary);
-    }
-    catch (e) {
-        res.status(500).json(e);
+    } catch (error) {
+        console.error("Error fetching salary data:", error);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 });
+
+
+
+
 
 // get all staff salary specific month
 router.get('/month/:month', async (req, res) => {
@@ -178,7 +199,7 @@ router.delete('/:id', async (req, res) => {
     }
 })
 // update salary
-router.put('/:id', async (req, res) => {
+router.put('/editSalary/:id', async (req, res) => {
     const id = req.params.id;
     const staffId = req.body.staffId;
     const month = req.body.month;

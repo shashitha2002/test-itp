@@ -25,6 +25,7 @@ import CreateStaff from './Pages/staffSalary/createStaff.jsx';
 import ViewStaff from "./Pages/staffSalary/ViewStaff.jsx";
 import UpdateStaff from "./Pages/staffSalary/UpdateStaff.jsx";
 import DeleteStaff from "./Pages/staffSalary/DeleteStaff.jsx";
+import UpdateSalary from "./Pages/staffSalary/UpdateSalary.jsx";
 
 class App extends Component {
     render() {
@@ -52,8 +53,8 @@ class App extends Component {
 
                 {/* salary routes */}
                 <Route path='/salary' element={<Salary/>} />
-                <Route path='/salary/editSalary' element={<Salary/>} />
                 <Route path='/salary/add/:id' element={<CreateSalary/>} />
+                <Route path='/salary/update/:id' element={<UpdateSalary/>} />
                 <Route path='/staff' element={<StaffSalary/>} />
                 <Route path='/staff/add' element={<CreateStaff/>} />
                 <Route path='/staff/view/:id' element={<ViewStaff/>} />

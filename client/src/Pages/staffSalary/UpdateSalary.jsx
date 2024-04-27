@@ -1,83 +1,66 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import axios from 'axios';
+import Salary from "./Salary.jsx";
 
-function CreateService () {
-    const [staffId, setStaffId] = useState('');
-    const [month, setMonth] = useState('');
+const UpdateSalary = () => {
+    const [month, setMonth] = useState(0);
     const [workingHours, setWorkingHours] = useState(0);
     const [OTHours, setOTHours] = useState(0);
     const [workingSalary, setWorkingSalary] = useState(0);
     const [OTSalary, setOTSalary] = useState(0);
-    const [totalSalary, setTotalSalary] = useState(0);
     const navigate = useNavigate();
 
-    const handleUpdate = () => {
-        const data = {
-            staffId,
-            month,
-            workingHours,
-            OTHours,
-            workingSalary,
-            OTSalary,
-            totalSalary
-        };
-        // update salary => need to add salID to url
-        axios.put('http://localhost:3500/', data)
-            .then(() => {
-                navigate('/');
-            })
-            .catch(error => {
-                console.error('Error adding salary:', error);
-            });
-    }
+    console.log(month, workingHours, OTHours, workingSalary);
+
+
+    const {id} = useParams();
+
+
+
 
     return (
         <div className='d-flex vh-100 bg-primary justify-content-center align-items-center'>
             <div className='w-50 bg-white rounded p-3'>
                 <form>
                     <Link to="/" className='text-info'>Home</Link>
-                    <h2>Add Salary</h2>
+                    <h2>Update Salary</h2>
                     <div className='mb-2'>
                         <label>Staff Id</label>
                         <input type="text" placeholder='Enter Staff Id' className='form-control'
-                            value={staffId} onChange={(e) => setStaffId(e.target.value)} />
+                               />
                     </div>
                     <div className='mb-2'>
                         <label>Month</label>
                         <input type="text" placeholder='Enter Month' className='form-control'
-                            value={month} onChange={(e) => setMonth(e.target.value)} />
+                                />
                     </div>
                     <div className='mb-2'>
                         <label>Working Hours</label>
                         <input type="number" placeholder='Enter Working Hours' className='form-control'
-                            value={workingHours} onChange={(e) => setWorkingHours(e.target.value)} />
+                        value={workingHours}        />
                     </div>
                     <div className='mb-2'>
                         <label>OT Hours</label>
                         <input type="number" placeholder='Enter Over Time Hours' className='form-control'
-                            value={OTHours} onChange={(e) => setOTHours(e.target.value)} />
+                                />
                     </div>
                     <div className='mb-2'>
                         <label>Working Salary</label>
                         <input type="number" placeholder='Enter Working Salary' className='form-control'
-                            value={workingSalary} onChange={(e) => setWorkingSalary(e.target.value)} />
+                               />
                     </div>
                     <div className='mb-2'>
                         <label>Over Time Salary</label>
                         <input type="number" placeholder='Enter OT Salary' className='form-control'
-                            value={OTSalary} onChange={(e) => setOTSalary(e.target.value)} />
+                                />
                     </div>
-                    <div className='mb-2'>
-                        <label>Total Salary</label>
-                        <input type="number" placeholder='Enter Total Salary' className='form-control'
-                            value={totalSalary} onChange={(e) => setTotalSalary(e.target.value)} />
-                    </div>
-                    <button type="button" className="btn btn-primary" onClick={handleUpdate}>Update</button>
+                    <button type="button" className="btn btn-primary">Update</button>
                 </form>
             </div>
         </div>
     )
 }
 
-export default CreateService;
+
+export default UpdateSalary;
