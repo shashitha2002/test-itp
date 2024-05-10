@@ -9,7 +9,10 @@ import {url} from '../constant/config.js';
 
 const ProductList = () => {
     const dispatch = useDispatch();
-    const cartCount = useSelector((state) => {return state.count});
+
+    const cartCount = useSelector((state) => {
+        return state.count
+    });
     const navigate = useNavigate()
     const [products,setProducts] = useState([]);
     const [loading,setLoading] = useState(false);

@@ -22,8 +22,8 @@ const GetTotalPrice = ({product}) => {
 
     return(
         <div>
-            <h6 className='fw-normal'>{productName} <i className="bi bi-arrow-right"></i> {disPrice} <i
-                className="bi bi-x"></i> {product.quantity} = {getEachTotal(disPrice,product.quantity)}</h6>
+            <h6 className='fw-normal'>{product.product.name} <i className="bi bi-arrow-right"></i> {product.product.disPrice} <i
+                className="bi bi-x"></i> {product.quantity} = {getEachTotal(product.product.disPrice,product.quantity)}</h6>
         </div>
     )
 }

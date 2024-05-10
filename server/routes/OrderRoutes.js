@@ -1,6 +1,5 @@
 import express from "express";
 import {Order} from '../models/orderModel.js'
-import {Product} from "../models/productModel.js";
 
 
 const router = express.Router();
@@ -61,7 +60,7 @@ router.get('/all',async (req,res) => {
 router.get('/:id',async (req,res) => {
     try {
         const {id} =req.params;
-        const order = await Order.findById(id);
+        const order = await Order.findById(id).populate({path:'products.product'});
 
         if(!order) {
             res.status(404).send({message:"Order can not be found"});
@@ -80,32 +79,36 @@ router.get('/:id',async (req,res) => {
 router.put('/edit/:id', async (req, res) => {
     try {
         const { id } = req.params;
+        const { userId, total, deliveryAddress, products } = req.body;
 
-        if (!req.body.products || !Array.isArray(req.body.products)) {
-            return res.status(400).send({ message: "Invalid products data" });
-        }
+        let order = await Order.findById(id);
 
-        let totalPrice = 0;
-        for (const productId of req.body.products) {
-            const product = await Product.findById(productId);
-            if (!product) {
-                return res.status(400).send({ message: `Product with ID ${productId} not found` });
-            }
-            totalPrice += product.disPrice;
-        }
-
-        req.body.totalPrice = totalPrice;
-
-        const result = await Order.findByIdAndUpdate(id, req.body);
-
-        if (!result) {
+        if (!order) {
             return res.status(404).send({ message: "Order not found" });
         }
 
-        return res.status(200).send({ message: "Order updated successfully" });
+        // Update order fields
+        order.userId = userId;
+        order.totalPrice = total;
+        order.address = deliveryAddress;
+
+        // Update quantities of products
+        products.forEach(product => {
+            const existingProduct = order.products.find(p => p.product._id.toString() === product.product._id.toString());
+            if (existingProduct) {
+                existingProduct.quantity = product.quantity;
+                order.markModified('products'); // Mark the 'products' array as modified
+            }
+        });
+
+
+        // Save the updated order
+        order = await order.save();
+
+        return res.status(200).json(order);
     } catch (error) {
-        console.log(error);
-        return res.status(500).send({ message: "Internal server error" });
+        console.error(error);
+        return res.status(500).send({ message: error.message });
     }
 });
 

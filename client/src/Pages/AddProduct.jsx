@@ -22,6 +22,31 @@ const AddProduct = () => {
 
     const handleAddProduct = () => {
 
+        if (!/^[a-zA-Z\s]+$/.test(name)) {
+            enqueueSnackbar('Product name should only contain letters and spaces', { variant: 'error' });
+            return;
+        }
+
+
+        const currentDate = new Date();
+        if (expireDate <= currentDate) {
+            enqueueSnackbar('Expiry date should be a future date', { variant: 'error' });
+            return;
+        }
+
+
+        if (manufactureDate >= currentDate) {
+            enqueueSnackbar('Manufacture date should be a past date', { variant: 'error' });
+            return;
+        }
+
+
+        if (!ingredients.trim()) {
+            enqueueSnackbar('Please provide product ingredients', { variant: 'error' });
+            return;
+        }
+
+
         setDisPrice(price)
         setDiscount(0)
 
