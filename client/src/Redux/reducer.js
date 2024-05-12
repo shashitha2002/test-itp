@@ -84,13 +84,19 @@ const productReducer = (state=initialState,action) => {
 
 
         case DECREASE_PRODUCT_QUANTITY:
-            let productQuantity = 0;
-            for (let i = 0; i < state.products.length; i++){
-                if(state.products[i]._id === action.payload){
-                    productQuantity = state.products[i].product.quantity--;
-                    console.log(productQuantity)
-                }
-            }
+            return {
+                ...state,
+                products: state.products.map(product => {
+                    if (product._id === action.payload) {
+                        return {
+                            ...product,
+                            quantity: product.quantity - 1
+                        };
+                    }
+                    return product;
+                })
+            };
+
     }
 
 }

@@ -133,4 +133,36 @@ router.delete('/delete/:id',async(req,res) => {
 })
 
 
+//get customer pending orders using customer ID
+router.get('/customerPendingOrders/:id',async(req,res) => {
+    try {
+        
+        const {id} = req.params;
+
+        const orders = await Order.find({userId:id , orderStatus:'pending'})
+
+        res.status(200).json({ orders });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({message:error.message})
+    }
+})
+
+//get all the Delivered Orders using customer ID
+router.get('/customerDeliveredOrders/:id',async(req,res) => {
+    try {
+        
+        const {id} = req.params;
+
+        const orders = await Order.find({userId:id , orderStatus:'delivered'})
+
+        res.status(200).json({ orders });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({message:error.message})
+    }
+})
+
 export default router;

@@ -162,4 +162,37 @@ router.put('/discount/:id',async (req,res) => {
     }
 })
 
+
+router.put("/products/updateQuantity/:productId", async (req, res) => {
+    try {
+        // Extract product ID and new quantity from request parameters
+        const productId = req.params.productId;
+        const newQuantity = req.body.quantity;
+
+        // Validate if new quantity is a valid number
+        if (isNaN(newQuantity) || newQuantity < 0) {
+            return res.status(400).json({ error: "Invalid quantity" });
+        }
+
+        // Find the product by ID in the database
+        const product = await Product.findById(productId);
+
+        // If product not found, return 404 Not Found
+        if (!product) {
+            return res.status(404).json({ error: "Product not found" });
+        }
+
+        // Update the quantity of the product
+        product.quantity = newQuantity;
+        await product.save();
+
+        // Send a success response
+        return res.status(200).json({ message: "Product quantity updated successfully" });
+    } catch (error) {
+        // Handle any errors that occur during the process
+        console.error("Error updating product quantity:", error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+});
+
 export default router;

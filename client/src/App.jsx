@@ -18,11 +18,17 @@ import ProductList from "./Pages/ProductList.jsx";
 import Cart from "./Pages/Cart.jsx";
 import MyOrders from "./Pages/MyOrders.jsx";
 import OrderReport from "./Pages/OrderReport.jsx";
+import CustomerPendingOrders from './Pages/CustomerPendingOrders.jsx';
+import CustomerDeliveredOrders from './Pages/CustomerDeliveredOrders.jsx';
+import Home from "./Pages/Home.jsx";
+import AboutUs from "./Pages/AboutUs.jsx";
+import ContactUs from "./Pages/ContactUs.jsx";
 
 class App extends Component {
     render() {
         return (
             <Routes>
+                    <Route path='/Home' element={<Home/>}/>
                 <Route path='/products' element={<ShowProducts/>}/>
                 <Route path="/card" element={<ProductCard/>} />
                 <Route path='/table' element={<ShowProducts/>}/>
@@ -42,6 +48,10 @@ class App extends Component {
                 <Route path="*" element={<NoPage/>} />
                 <Route path='/myOrders' element={<MyOrders/>}/>
                 <Route path='/orderReport' element={<OrderReport/>}></Route>
+                <Route path='/myPendingOrder/' element={<CustomerPendingOrders/>}></Route>
+                <Route path='/myDeliveredOrder/' element={<CustomerDeliveredOrders/>}></Route>
+                <Route path='/AboutUs/' element={<AboutUs/>}></Route>
+                <Route path='/ContactUs/' element={<ContactUs/>}></Route>
             </Routes>
 
         );
