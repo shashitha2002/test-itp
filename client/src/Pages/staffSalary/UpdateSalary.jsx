@@ -27,8 +27,7 @@ const UpdateSalary = () => {
                     <h2>Update Salary</h2>
                     <div className='mb-2'>
                         <label>Staff Id</label>
-                        <input type="text" placeholder='Enter Staff Id' className='form-control'
-                               />
+                        <input type="text" placeholder='Enter Staff Id' className='form-control'/>
                     </div>
                     <div className='mb-2'>
                         <label>Month</label>
