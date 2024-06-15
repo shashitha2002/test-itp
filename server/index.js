@@ -1,29 +1,20 @@
-import express from "express";
-import mongoose from "mongoose";
-import productRoutes from "./routes/productRoutes.js";
-import OrderRoutes from "./routes/OrderRoutes.js"
-import cors from "cors";
-import 'dotenv/config';
-const PORT = process.env.PORT || 3500;
-const app = express();
+const express = require('express')
+const mongoose = require('mongoose')
+const cors = require( "cors");
+require('dotenv/config');
+const PORT = process.env.PORT || 5555;
+const StockRoute = require('./routes/StockRoute')
 
-app.use(express.json());
-app.use(express.static('public'))
+const mongoDnUrl = process.env.MONGODB_URL;
 
-const corsOptions = {
-    origin: 'http://localhost:5173',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-};
+const app = express()
+app.use(cors())
+app.use(express.json())
 
-app.use(cors(corsOptions));
+app.use('/stocks',StockRoute);
 
-app.use('/products',productRoutes)
-app.use('/orders',OrderRoutes)
 
-const mongoDBnUrl = process.env.MONGODB_URL;
-
-mongoose.connect(mongoDBnUrl, {})
+mongoose.connect(mongoDnUrl, {})
     .then(() => {
         console.log("App connected to the database")
 
@@ -33,24 +24,9 @@ mongoose.connect(mongoDBnUrl, {})
     })
     .catch(err => console.error(err));
 
-/*
-mongoose
-    .connect(mongoDBUrl)
-    .then(() => {
-        console.log("App connected to the database")
-
-        app.listen(PORT, () => {
-            console.log(`App is listening to port : ${PORT}`)
-        })
+    app.delete('/deleteUser/:id', (req,res) => {
+        const id = req.params.id;
+        ServiceModel.findByIdAndDelete({_id:id})
+        .then(res => res.json(res))
+        .catch(err => res.json(err))
     })
-    .catch((error) => {
-        console.log(error)
-    })
-
-    {
-            "userId":"it223",
-            "products":["660bc0e370c6e4b0df86fdbd"],
-            "totalPrice" : 0,
-            "orderStatus" : "pending"
-}
-*/

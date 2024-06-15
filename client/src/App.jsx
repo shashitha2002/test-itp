@@ -1,61 +1,34 @@
-import React, {Component} from 'react';
-import {Route,Routes} from "react-router-dom";
-import ShowProducts from "./Pages/ShowProducts.jsx";
-import ProductCard from "./Components/ProductHome/ProductCard.jsx";
-import EditProduct from "./Pages/EditProduct.jsx";
-import DeleteProduct from "./Pages/DeleteProduct.jsx";
-import AddProduct from "./Pages/AddProduct.jsx";
-import ShowSingleProduct from "./Components/ProductHome/ShowSingleProduct.jsx";
-import AddDiscount from "./Pages/AddDiscount.jsx";
-import Discount from "./Pages/Discount.jsx";
-import Orders from "./Pages/Orders.jsx";
-import OrderTable from "./Components/OrderHome/OrderTable.jsx";
-import ShowSingleOrder from "./Components/OrderHome/ShowSingleOrder.jsx";
-import EditOrder from "./Pages/EditOrder.jsx";
-import DeleteOrder from "./Pages/DeleteOrder.jsx";
-import NoPage from "./Pages/NoPage.jsx";
-import ProductList from "./Pages/ProductList.jsx";
-import Cart from "./Pages/Cart.jsx";
-import MyOrders from "./Pages/MyOrders.jsx";
-import OrderReport from "./Pages/OrderReport.jsx";
-import CustomerPendingOrders from './Pages/CustomerPendingOrders.jsx';
-import CustomerDeliveredOrders from './Pages/CustomerDeliveredOrders.jsx';
-import Home from "./Pages/Home.jsx";
-import AboutUs from "./Pages/AboutUs.jsx";
-import ContactUs from "./Pages/ContactUs.jsx";
+import { useState } from 'react'
+import './App.css'
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Stock from './Stock'
+import CreateStock from "./CreateStock.jsx";
+import UpdateStock from "./UpdateStock.jsx";
+import DeleteProduct from './deletestock.jsx';
+import AboutUs from './AboutUs.jsx'; // Import the AboutUs component
+import ContactUs from './ContactUs.jsx' //import contact us 
 
-class App extends Component {
-    render() {
-        return (
-            <Routes>
-                    <Route path='/Home' element={<Home/>}/>
-                <Route path='/products' element={<ShowProducts/>}/>
-                <Route path="/card" element={<ProductCard/>} />
-                <Route path='/table' element={<ShowProducts/>}/>
-                <Route path='/products/edit/:id' element={<EditProduct/>}/>
-                <Route path='/products/delete/:id' element={<DeleteProduct/>}/>
-                <Route path='/products/add' element={<AddProduct/>}/>
-                <Route path='/products/show/:id' element={<ShowSingleProduct/>}/>
-                <Route path='/products/discount' element={<Discount/>}/>
-                <Route path='/products/addDiscount/:id' element={<AddDiscount/>}/>
-                <Route path='/orders' element={<Orders/>}></Route>
-                <Route path='/orders/orderTable' element={<OrderTable/>}/>
-                <Route path='/orders/show/:id' element={<ShowSingleOrder/>}/>
-                <Route path='/orders/edit/:id' element={<EditOrder/>}/>
-                <Route path='/orders/delete/:id' element={<DeleteOrder/>}/>
-                <Route path='/productList' element={<ProductList/>}/>
-                <Route path='/cart' element={<Cart/>}/>
-                <Route path="*" element={<NoPage/>} />
-                <Route path='/myOrders' element={<MyOrders/>}/>
-                <Route path='/orderReport' element={<OrderReport/>}></Route>
-                <Route path='/myPendingOrder/' element={<CustomerPendingOrders/>}></Route>
-                <Route path='/myDeliveredOrder/' element={<CustomerDeliveredOrders/>}></Route>
-                <Route path='/AboutUs/' element={<AboutUs/>}></Route>
-                <Route path='/ContactUs/' element={<ContactUs/>}></Route>
-            </Routes>
+function App() {
+  const [count, setCount] = useState(0)
 
-        );
-    }
+  return (
+    <div>
+
+        <Routes>
+          <Route path='/' element={<Stock/>}/>
+          <Route path='/create' element={<CreateStock/>}/>
+            <Route path='/edit/:id' element={<UpdateStock/>}/>
+            <Route path='/delete/:id' element={<DeleteProduct/>}/>
+            <Route path="/about" element={<AboutUs />} /> {/* Add route for AboutUs component */}
+            <Route path="/contact" element={<ContactUs/>}/> {/* Add route for Contact us component */}
+            
+
+            
+        </Routes>
+
+    </div>
+  )
 }
 
-export default App;
+export default App
